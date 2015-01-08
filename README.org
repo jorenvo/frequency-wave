@@ -1,0 +1,49 @@
+#+STARTUP: showeverything
+* Frequency-wave
+Frequency-wave is a program that visualizes sound coming from [[http://www.musicpd.org/][MPD]]. It
+can do so in three different ways: as a waveform, by plotting
+amplitude vs frequency, and by rendering a 3D surface spectogram.
+** Demonstration
+[[https://www.youtube.com/watch?v=RLD4nn0uEDI][YouTube demonstration (enable annotations)]]
+** Features
+*** 3D surface spectogram
+[[images/surface_spectogram_screenshot.png]]
+*** Waveform
+[[images/waveform_screenshot.png]]
+*** Amplitude vs frequency
+[[images/amplitude_vs_freq_screenshot.png]]
+** How to use
+*** Dependencies
+- [[http://www.musicpd.org/][MPD]]
+*** Build dependencies
+- [[http://freeglut.sourceforge.net/][freeGLUT]]
+- libGL
+- libGLU
+- [[http://www.fftw.org/][FFTW]]
+*** Building
+Frequency-wave can be built by running
+#+BEGIN_SRC bash
+$ make
+#+END_SRC
+in the root directory of this project.
+*** MPD setup
+MPD needs to be configured to create a FIFO pipe to which raw samples
+will be written during playback. This can be done by adding the
+following to your MPD configuration (normally in ~/.mpd/mpd.conf):
+#+BEGIN_SRC bash
+audio_output {
+    type                    "fifo"
+    name                    "my_fifo"
+    path                    "/tmp/mpd.fifo"
+    format                  "44100:16:1"
+}
+#+END_SRC
+*** Controls
+|-----+--------------------------------------------------------|
+| Key | Description                                            |
+|-----+--------------------------------------------------------|
+|   1 | Waveform-mode                                          |
+|   2 | Amplitude vs frequency mode                            |
+|   3 | 3D surface spectogram mode                             |
+|   x | Toggle between logarithmic and linear frequency scales |
+|-----+--------------------------------------------------------|
